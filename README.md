@@ -32,3 +32,10 @@ Sentinel-1 data VV-VH data; filtered and unfiltered;
 Details about the processing chain can be found in the following paper:
 
 Hu, Jingliang, Pedram Ghamisi, and Xiao Xiang Zhu. "Feature extraction and selection of sentinel-1 dual-pol data for global-scale local climate zone classification." ISPRS International Journal of Geo-Information 7.9 (2018): 379. (DOI: https://doi.org/10.3390/ijgi7090379)
+
+This repository has been used for projects whose outcomes results in papers listed here:
+
+Hu, Jingliang, Pedram Ghamisi, and Xiao Xiang Zhu. "Feature extraction and selection of sentinel-1 dual-pol data for global-scale local climate zone classification." ISPRS International Journal of Geo-Information 7.9 (2018): 379. (DOI: https://doi.org/10.3390/ijgi7090379)
+
+Zhu, Xiao Xiang, et al. "So2Sat LCZ42: A Benchmark Data Set for the Classification of Global Local Climate Zones [Software and Data Sets]," in IEEE Geoscience and Remote Sensing Magazine, vol. 8, no. 3, pp. 76-89, Sept. 2020, doi: 10.1109/MGRS.2020.2964708.
+
