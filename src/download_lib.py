@@ -13,15 +13,16 @@ from osgeo import ogr,osr,gdal
 import pandas as pd
 from sentinelsat.sentinel import SentinelAPI
 import sentinelsat
+import numpy as np
 print(sentinelsat.__file__)
 
 
 
 def run_download(product_id, out_dir, d_api):
     # start the downloading with the data id, output directory, and sentinelsat api
-    file_object = open(out_dir+'data_product_id',"w")
-    file_object.write(product_id)
-    file_object.close()
+    #file_object = open(out_dir+'data_product_id',"w")
+    #file_object.write(product_id)
+    #file_object.close()
 
     try:
         download_info = d_api.download(product_id, directory_path=out_dir)
@@ -37,21 +38,21 @@ def run_download(product_id, out_dir, d_api):
     if os.path.exists(out_dir+download_info['title']+'.zip'):
         os.mknod(out_dir+'data_downloaded.ok')
         print('data_downloaded')
-        os.remove(out_dir+'data_product_id')
+        #os.remove(out_dir+'data_product_id')
     elif download_info['Online']:
-        os.mknod(out_dir+"online_not_downloaded.ok")
+        # os.mknod(out_dir+"online_not_downloaded.ok")
         print('online_but_not_downloaded')
     elif not download_info['Online']:
         retrievel_code = d_api._trigger_offline_retrieval(download_info['url'])
         # check https://scihub.copernicus.eu/userguide/LongTermArchive#HTTP_Status_codes
         if retrievel_code == 202:
-            os.mknod(out_dir+"retrieval_accepted.ok")
+            # os.mknod(out_dir+"retrieval_accepted.ok")
             print("offline product retrieval accepted")
         elif retrievel_code == 403:
-            os.mknod(out_dir+"requests_exceed_quota.ok")
+            # os.mknod(out_dir+"requests_exceed_quota.ok")
             print("offline product requests exceed quota")
         elif retrievel_code == 503:
-            os.mknod(out_dir+"retrieval_not_accepted.ok")
+            # os.mknod(out_dir+"retrieval_not_accepted.ok")
             print("offline product retrieval not accepted")
     return download_info
 
@@ -91,4 +92,32 @@ def data_record_orbit_sorting(products):
     return products
 
 
+def retrieve_mata_data(filename,username,password):
+    url = 'https://scihub.copernicus.eu/dhus'
+    info = filename.split('_')
+    satellite = info[0]
+    mode = info[1]
+    product = info[2]
+    orbitnumber = np.int(info[7])
+    time_start = np.int(info[5].split('T')[0])-1
+    time_end = str(np.int(time_start+2))
+    time_start = str(time_start)
+
+    api = SentinelAPI(username, password, url)
+    products = api.query(
+                         beginposition=(time_start,time_end),
+                         platformname='Sentinel-1',
+                         producttype=product,
+                         sensoroperationalmode=mode,
+                         polarisationmode='VV VH',
+                         orbitnumber=orbitnumber
+                         )
+
+    products_df  = api.to_dataframe(products)
+    index = -1
+    for i in range(len(products_df)):
+        if products_df['title'][i] in filename:
+            index = i
+
+    return products_df.iloc[index]
 

@@ -3,8 +3,8 @@ import glob
 from osgeo import gdal
 from tqdm import tqdm
 
-files = glob.glob('data/Sentinel-1/*/geocoded_subset_dat/*/*.tif')
-out_data_dir = 'data/Sentinel-1_analysis_ready/'
+files = glob.glob('../data/Sentinel-1/*/geocoded_subset_dat/*/*.tif')
+out_data_dir = '../data/Sentinel-1_analysis_ready/'
 
 for i in tqdm(range(len(files))):
 #for i in range(1):
@@ -13,8 +13,8 @@ for i in tqdm(range(len(files))):
     '''
     lee_data_file = files[i]
     info = lee_data_file.split('/')
-    place = info[2]
-    time = info[4][:4]+'_'+ info[4][-2:]
+    place = info[3]
+    time = info[5][:4]+'_'+ info[5][-2:]
     out_data_file_name ='/'+ place+'_'+time+'.tif'
     place_folder = out_data_dir+place
     if not os.path.exists(place_folder):

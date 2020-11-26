@@ -1,0 +1,19 @@
+First step:
+Download one data for a place with the scripts "sentinel_1_download.py" and "sentinel_1_download_revise.py" in 1_download_script
+
+Second step:
+Preprocess the first data of each place with the script in directory "2_data_preprocessing"
+
+Third step:
+Visualize the first data of each place with the script in directory "4_visualization"; and visually check the precessed data
+
+Fourth step:
+Download the rest 23 data sets for each place who have the same meta data of the first data
+
+Fifth step:
+Preprocess all data sets
+
+Sixth step:
+Reorganize all data sets as analysis ready data, visualize them, and final check
+
+

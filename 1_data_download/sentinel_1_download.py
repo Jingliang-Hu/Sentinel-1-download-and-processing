@@ -20,7 +20,6 @@ from sentinelsat.sentinel import SentinelAPI
 import sentinelsat
 print(sentinelsat.__file__)
 
-
 start_point = 0
 
 ###############################################################################
@@ -32,24 +31,9 @@ url = 'https://scihub.copernicus.eu/dhus'
 if start_point == 0:
     username ='sipeo_so2sat_demo'
     password='sipeo_so2sat'
-elif start_point == 1:
-    username = ''
-    password=''
-elif start_point == 2:
-    username = ''
-    password=''
-elif start_point == 3:
-    username = ''
-    password=''
-elif start_point == 4:
-    username = ''
-    password=''
-elif start_point == 5:
-    username = ''
-    password=''
+
 
 ###############################################################################
-
 
 
 ###############################################################################

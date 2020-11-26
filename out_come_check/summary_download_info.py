@@ -27,12 +27,8 @@ print(sentinelsat.__file__)
 # the link to sentinel data hub, user account and password
 url = 'https://scihub.copernicus.eu/dhus'
 # HERE PUT IN YOUR USER ACCOUNT
-# username ='sipeo_so2sat_demo'
-username = 'jingliang'
-
-# YOUR PASSWORK
-# password='sipeo_so2sat'
-password='Hjl19880717'
+username ='sipeo_so2sat_demo'
+password='sipeo_so2sat'
 
 ###############################################################################
 

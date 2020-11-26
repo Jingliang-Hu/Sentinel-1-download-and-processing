@@ -416,7 +416,7 @@ def latlon2utm(points):
     
     for i in range(0,np.size(points,axis=0)):
         p = ogr.Geometry(ogr.wkbPoint)
-        p.AddPoint(points[i][1], points[i][0])
+        p.AddPoint(points[i][0], points[i][1])
         p.Transform(coordTransform)
         points[i][0] = p.GetX()
         points[i][1] = p.GetY()
