@@ -20,7 +20,7 @@ from sentinelsat.sentinel import SentinelAPI
 import sentinelsat
 print(sentinelsat.__file__)
 
-start_point = 0
+start_point = 1
 
 ###############################################################################
 # the link to sentinel data hub, user account and password
@@ -179,11 +179,11 @@ for idx_city in range(len(cityname)-1,-1,-1):
             if not isinstance(product_tbd,int):
                 break;
 
-
+        del api
         # download the found data
         if not isinstance(product_tbd,int):
             while not os.path.exists(outdatapath+'data_downloaded.ok'):
-                download_info = d_lib.run_download(product_tbd['uuid'], outdatapath, api)
+                download_info = d_lib.run_download(product_tbd['uuid'], outdatapath, username, password)
                 if not os.path.exists(outdatapath+'data_downloaded.ok'):
                     # pause the programme to avoid the ERROR: "429 Too Many Requests"
                     secs = 500

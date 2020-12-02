@@ -33,7 +33,6 @@ if start_point == 0:
     username ='sipeo_so2sat_demo'
     password='sipeo_so2sat'
 
-
 ###############################################################################
 
 

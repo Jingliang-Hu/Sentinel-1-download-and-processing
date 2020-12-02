@@ -33,7 +33,6 @@ if start_point == 0:
     username ='sipeo_so2sat_demo'
     password='sipeo_so2sat'
 
-
 ###############################################################################
 
 
@@ -176,11 +175,11 @@ for idx_city in range(len(cityname)-start_point-1,-1,-6):
             if not isinstance(product_tbd,int):
                 break;
 
-
+        del api
         # download the found data
         if not isinstance(product_tbd,int):
             while not os.path.exists(outdatapath+'data_downloaded.ok'):
-                download_info = d_lib.run_download(product_tbd['uuid'], outdatapath, api)
+                download_info = d_lib.run_download(product_tbd['uuid'], outdatapath, username, password)
                 if not os.path.exists(outdatapath+'data_downloaded.ok'):
                     # pause the programme to avoid the ERROR: "429 Too Many Requests"
                     secs = 500

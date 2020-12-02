@@ -126,6 +126,8 @@ for idx_city in range(len(cityname)):
 
     ###############################################################################    
     for tt in range(1,len(startDate)):
+        if city == '2832_4366_13' and startDate[tt][:6] == '201807':
+            continue
         ###############################################################################
         # path setting (do not change)
         outdatapath = outdir + '/' + city + '/original_dat'+'/'+startDate[tt][:6]+'/'
@@ -178,9 +180,10 @@ for idx_city in range(len(cityname)):
 
 
         # download the found data
+        del api
         if not isinstance(product_tbd,int):
             while not os.path.exists(outdatapath+'data_downloaded.ok'):
-                download_info = d_lib.run_download(product_tbd['uuid'], outdatapath, api)
+                download_info = d_lib.run_download(product_tbd['uuid'], outdatapath, username, password)
                 if not os.path.exists(outdatapath+'data_downloaded.ok'):
                     # pause the programme to avoid the ERROR: "429 Too Many Requests"
                     secs = 500

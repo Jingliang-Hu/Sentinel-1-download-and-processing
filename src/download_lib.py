@@ -18,16 +18,49 @@ print(sentinelsat.__file__)
 
 
 
-def run_download(product_id, out_dir, d_api):
+def run_download_from_pool(product_id, out_dir, username, password):
+    url = 'https://scihub.copernicus.eu/dhus'
+    d_api = SentinelAPI(username, password, url)
+    try:
+        download_info = d_api.download(product_id, directory_path=out_dir)
+    except:
+        print('Server connection error')
+        return 0
+    if os.path.exists(out_dir+'/'+download_info['title']+'.zip'):
+        os.mknod(out_dir+'/'+download_info['title']+'.ok')
+        print('data_downloaded')
+        #os.remove(out_dir+'data_product_id')
+    elif download_info['Online']:
+        # os.mknod(out_dir+"online_not_downloaded.ok")
+        print('online_but_not_downloaded')
+    elif not download_info['Online']:
+        retrievel_code = d_api._trigger_offline_retrieval(download_info['url'])
+        # check https://scihub.copernicus.eu/userguide/LongTermArchive#HTTP_Status_codes
+        if retrievel_code == 202:
+            # os.mknod(out_dir+"retrieval_accepted.ok")
+            print("offline product retrieval accepted")
+        elif retrievel_code == 403:
+            # os.mknod(out_dir+"requests_exceed_quota.ok")
+            print("offline product requests exceed quota")
+        elif retrievel_code == 503:
+            # os.mknod(out_dir+"retrieval_not_accepted.ok")
+            print("offline product retrieval not accepted")
+    return download_info
+
+
+     
+
+def run_download(product_id, out_dir, username, password):
     # start the downloading with the data id, output directory, and sentinelsat api
     #file_object = open(out_dir+'data_product_id',"w")
     #file_object.write(product_id)
     #file_object.close()
-
+    url = 'https://scihub.copernicus.eu/dhus'
+    d_api = SentinelAPI(username, password, url)
     try:
         download_info = d_api.download(product_id, directory_path=out_dir)
     except:
-        print('Unknown error happened in downloading')
+        print('Server connection error')
         return 0
 
     ok_files = glob.glob(out_dir+'*.ok')
